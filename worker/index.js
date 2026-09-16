@@ -1,17 +1,29 @@
-// Cloudflare Pages Function — handles POST /api/contact
-// Sends the message to you via Cloudflare Email Service's REST API.
+// This Worker does two jobs:
+// 1. For POST /api/contact, it handles the contact form and emails you.
+// 2. For every other request, it just serves the static site files
+//    (index.html, etc.) via the ASSETS binding.
 //
 // Required environment variables (set in Cloudflare dashboard:
-// Pages project > Settings > Environment variables):
+// your Worker > Settings > Variables and Secrets):
 //   CF_ACCOUNT_ID       - your Cloudflare account ID
 //   CF_EMAIL_API_TOKEN  - API token with "Email Sending: Edit" permission
-//   CONTACT_TO_EMAIL    - where messages should land, e.g. shishirpaudelofficial@gmail.com
-//   CONTACT_FROM_EMAIL  - a verified sending address on your onboarded domain,
-//                         e.g. contact@shishirpaudel.info.np
+//   CONTACT_TO_EMAIL    - where messages should land
+//   CONTACT_FROM_EMAIL  - a verified sending address on your onboarded domain
 
-export async function onRequestPost(context) {
-  const { request, env } = context;
+export default {
+  async fetch(request, env, ctx) {
+    const url = new URL(request.url);
 
+    if (url.pathname === "/api/contact" && request.method === "POST") {
+      return handleContact(request, env);
+    }
+
+    // Everything else: serve the static site as-is.
+    return env.ASSETS.fetch(request);
+  },
+};
+
+async function handleContact(request, env) {
   try {
     let name, email, message, company;
 
@@ -31,7 +43,6 @@ export async function onRequestPost(context) {
     }
 
     // Honeypot: real visitors never fill this hidden field.
-    // Pretend success so bots don't learn anything, but don't send an email.
     if (company) {
       return json({ success: true });
     }
@@ -56,10 +67,7 @@ export async function onRequestPost(context) {
     const fromAddress = env.CONTACT_FROM_EMAIL;
 
     if (!accountId || !apiToken || !toAddress || !fromAddress) {
-      return json(
-        { success: false, error: "Contact form isn't configured yet." },
-        500
-      );
+      return json({ success: false, error: "Contact form isn't configured yet." }, 500);
     }
 
     const text =

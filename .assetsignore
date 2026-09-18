@@ -3,3 +3,5 @@ wrangler.jsonc
 .assetsignore
 node_modules/**
 .git/**
+_*
+*.bak

@@ -486,33 +486,6 @@ section.tinted{background:var(--paper-2); border-block:1px solid var(--line);}
 .strings button.pluck{animation:pluck .45s ease;}
 @keyframes pluck{0%,100%{transform:scaleY(1)}30%{transform:scaleY(2.6)}60%{transform:scaleY(.5)}}
 
-/* ============================================================
-   JOURNEY
-   ============================================================ */
-.journey{display:grid; grid-template-columns:repeat(3,1fr); position:relative;}
-.jstep{position:relative; padding:0 22px;}
-.jstep::before{
-  content:""; position:absolute; left:0; top:11px; right:0; height:1px;
-  background:repeating-linear-gradient(90deg,var(--line-2) 0 5px,transparent 5px 11px);
-}
-.jstep:first-child::before{left:50%;}
-.jstep:last-child::before{right:50%;}
-.jdot{
-  position:relative; width:11px; height:11px; border-radius:50%; margin:6px auto 20px;
-  background:var(--paper); border:2px solid var(--line-2); z-index:1;
-}
-.jstep.on .jdot{background:var(--accent); border-color:var(--accent); box-shadow:0 0 0 5px var(--accent-soft);}
-.jstep h4{font-family:var(--display); font-size:1.15rem; margin-bottom:5px; text-align:center;}
-.jstep p{font-size:.88rem; color:var(--ink-2); text-align:center;}
-.jstep .jyear{
-  display:block; text-align:center; font-family:var(--mono); font-size:.66rem;
-  letter-spacing:.1em; color:var(--ink-3); margin-bottom:7px;
-}
-@media (max-width:700px){
-  .journey{grid-template-columns:1fr; gap:26px;}
-  .jstep::before{display:none;}
-  .jdot{margin:0 auto 12px;}
-}
 
 /* ============================================================
    MODE-FLIP CTA
@@ -706,8 +679,7 @@ footer .hint{font-family:var(--mono); font-size:.64rem; letter-spacing:.08em; ma
           <img src="/img/shishir-portrait.jpg" alt="Shishir Paudel standing on a street in Japan" width="750" height="1000" fetchpriority="high">
         </picture>
       </div>
-      <span class="tag-float tag-1">📍 Somewhere in Japan</span>
-      <span class="tag-float tag-2">Nepal → 日本</span>
+      <span class="tag-float tag-1">📍 Japan</span>
     </div>
   </div>
 </section>
@@ -999,8 +971,8 @@ footer .hint{font-family:var(--mono); font-size:.64rem; letter-spacing:.08em; ma
 
       <article class="blk span-2 reveal d1">
         <span class="emoji-hd">🗾</span>
-        <h3>Nepal to Japan</h3>
-        <p>Started in Pokhara, studied in Kathmandu, now building AI with a team in Japan. The commute got interesting.</p>
+        <h3>Where I am</h3>
+        <p>From Pokhara. I build AI with a team in Japan, and still lead research with a lab back in Kathmandu.</p>
       </article>
 
       <article class="blk span-2 reveal d2">
@@ -1024,34 +996,6 @@ footer .hint{font-family:var(--mono); font-size:.64rem; letter-spacing:.08em; ma
   </div>
 </section>
 
-<section id="journey" class="tinted" data-label="Journey">
-  <div class="wrap">
-    <div class="shead reveal" style="max-width:none; text-align:center; margin-inline:auto">
-      <span class="eyebrow" style="justify-content:center">The route so far</span>
-      <h2>Pokhara → Kathmandu → <em>Japan</em></h2>
-    </div>
-    <div class="journey reveal">
-      <div class="jstep">
-        <div class="jdot"></div>
-        <span class="jyear">Where it starts</span>
-        <h4>Pokhara, Nepal</h4>
-        <p>Home. First code, first Android app, first award.</p>
-      </div>
-      <div class="jstep">
-        <div class="jdot"></div>
-        <span class="jyear">2020 — 2023</span>
-        <h4>Kathmandu University</h4>
-        <p>Computer engineering, two research labs, one published paper.</p>
-      </div>
-      <div class="jstep on">
-        <div class="jdot"></div>
-        <span class="jyear">2024 — now</span>
-        <h4>Japan</h4>
-        <p>AI engineering at System Shared Inc., still leading research back home.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section id="contact" data-label="Contact">
   <div class="wrap">
@@ -1368,7 +1312,6 @@ var COMMANDS = [
   { ico:"🧩", label:"Projects",               meta:"Section", mode:"work", act:function(){ setMode("work"); jumpTo("projects"); } },
   { ico:"📄", label:"Research & awards",      meta:"Section", mode:"work", act:function(){ setMode("work"); jumpTo("research"); } },
   { ico:"🎸", label:"Play — guitar, art, ball games", meta:"Section", act:function(){ setMode("play", true); jumpTo("play"); } },
-  { ico:"🗺️", label:"The journey: Pokhara to Japan", meta:"Section", act:function(){ jumpTo("journey"); } },
   { ico:"✉️", label:"Contact",                meta:"Section", act:function(){ jumpTo("contact"); } },
   { ico:"🎙️", label:"Nepali speech recognition", meta:"Project", act:function(){ setMode("work"); jumpTo("projects"); } },
   { ico:"🧭", label:"AI career roadmap system",  meta:"Project", act:function(){ setMode("work"); jumpTo("projects"); } },
